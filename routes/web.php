@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\CreatePost;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Welcome::class);
+
+Route::group(['prefix' => 'post'], function () {
+    Route::get('/', CreatePost::class);
+});
