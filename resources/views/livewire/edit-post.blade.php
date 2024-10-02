@@ -1,6 +1,7 @@
 <div>
+    <x-header title="Update #{{ $post->id }}" separator />
     <x-form wire:submit="save">
-        <x-input label="Title:" wire:model="title" />
+        <x-input label="Title" wire:model="title" />
         <x-textarea label="Content" wire:model="content" />
 
         <x-slot:actions>

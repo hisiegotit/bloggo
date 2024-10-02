@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->comment('Post title');
             $table->longText('content')->comment('Post content');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

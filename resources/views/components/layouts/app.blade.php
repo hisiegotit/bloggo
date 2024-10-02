@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-
+    <x-spotlight />
     {{-- The navbar with `sticky` and `full-width` --}}
     <x-nav sticky full-width>
 
@@ -20,7 +20,7 @@
             </label>
 
             {{-- Brand --}}
-            <div>App</div>
+            <div>Bloggo</div>
         </x-slot:brand>
 
         {{-- Right side actions --}}
@@ -51,9 +51,9 @@
             {{-- Activates the menu item when a route matches the `link` property --}}
             <x-menu activate-by-route>
                 <x-menu-item title="Home" icon="o-home" link="###" />
-                <x-menu-item title="Messages" icon="o-envelope" link="###" />
-                <x-menu-sub title="Settings" icon="o-cog-6-tooth">
-                    <x-menu-item title="Wifi" icon="o-wifi" link="####" />
+                <x-menu-sub title="Posts" icon="o-document">
+                    <x-menu-item title="List post" icon="o-queue-list" link="{{ route('post.index') }}" />
+                    <x-menu-item title="Create post" icon="o-plus" link="{{ route('post.create') }}" />
                     <x-menu-item title="Archives" icon="o-archive-box" link="####" />
                 </x-menu-sub>
             </x-menu>

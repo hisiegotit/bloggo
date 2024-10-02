@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\CreatePost;
+use App\Livewire\EditPost;
+use App\Livewire\ListPost;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Welcome::class);
-
-Route::group(['prefix' => 'post'], function () {
-    Route::get('/', CreatePost::class);
+Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
+    Route::get('/', ListPost::class)->name('index');
+    Route::get('/edit/{post}', EditPost::class)->name('edit');
+    Route::get('/create', CreatePost::class)->name('create');
 });
