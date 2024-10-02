@@ -2,7 +2,8 @@
     <x-header title="Update #{{ $post->id }}" separator />
     <x-form wire:submit="save">
         <x-input label="Title" wire:model="title" />
-        <x-textarea label="Content" wire:model="content" />
+        {{-- <x-textarea label="Content" wire:model="content" /> --}}
+        <x-markdown wire:model="content" label="Content" />
 
         <x-slot:actions>
             <x-button label="Cancel" />

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
@@ -12,8 +13,10 @@ class EditPost extends Component
 
     public $post;
 
+    #[Validate('required', 'string')]
     public $title;
 
+    #[Validate('required', 'string')]
     public $content;
 
     public function mount(Post $post): void
