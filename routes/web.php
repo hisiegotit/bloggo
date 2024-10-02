@@ -4,7 +4,9 @@ use App\Livewire\CreatePost;
 use App\Livewire\EditPost;
 use App\Livewire\ListPost;
 use App\Livewire\Welcome;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
+// Users will be redirected to this route if not logged in
+Volt::route('/login', 'login')->name('login');
+Volt::route('/register', 'register')->name('register');
+
+// Define the logout
+Route::get('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+});
+
+Route::group(['prefix' => 'post', 'as' => 'post.', 'middleware' => 'auth'], function () {
     Route::get('/', ListPost::class)->name('index');
     Route::get('/edit/{post}', EditPost::class)->name('edit');
     Route::get('/create', CreatePost::class)->name('create');
