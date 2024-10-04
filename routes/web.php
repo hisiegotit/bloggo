@@ -1,8 +1,10 @@
 <?php
 
+use App\Livewire\ArchivePost;
 use App\Livewire\CreatePost;
 use App\Livewire\EditPost;
 use App\Livewire\ListPost;
+use App\Livewire\ShowPost;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,8 @@ use Livewire\Volt\Volt;
 |
 */
 
+Route::get('/', Welcome::class)->name('welcome');
+Route::get('/view/{post}', ShowPost::class)->name('post.show');
 // Users will be redirected to this route if not logged in
 Volt::route('/login', 'login')->name('login');
 Volt::route('/register', 'register')->name('register');
@@ -29,11 +33,12 @@ Route::get('/logout', function () {
     request()->session()->invalidate();
     request()->session()->regenerateToken();
 
-    return redirect('/');
+    return redirect('/login');
 });
 
 Route::group(['prefix' => 'post', 'as' => 'post.', 'middleware' => 'auth'], function () {
     Route::get('/', ListPost::class)->name('index');
     Route::get('/edit/{post}', EditPost::class)->name('edit');
     Route::get('/create', CreatePost::class)->name('create');
+    Route::get('/archive', ArchivePost::class)->name('archive');
 });

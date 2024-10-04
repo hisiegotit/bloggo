@@ -23,11 +23,11 @@
             {{-- Brand --}}
             <div>Bloggo</div>
         </x-slot:brand>
-
         {{-- Right side actions --}}
         <x-slot:actions>
-            <x-button label="Messages" icon="o-envelope" link="###" class="btn-ghost btn-sm" responsive />
-            <x-button label="Notifications" icon="o-bell" link="###" class="btn-ghost btn-sm" responsive />
+            <x-theme-toggle class="btn btn-circle btn-ghost" />
+            <x-button label="Facebook" icon="fab.facebook" external link="{{ config('constants.social_links.facebook') }}" class="btn-ghost btn-sm" responsive wire.navigate />
+            <x-button label="Github" icon="fab.github" external link="{{ config('constants.social_links.github') }}" class="btn-ghost btn-sm" responsive />
         </x-slot:actions>
     </x-nav>
 
@@ -36,29 +36,29 @@
 
         {{-- This is a sidebar that works also as a drawer on small screens --}}
         {{-- Notice the `main-drawer` reference here --}}
+        @if($user = auth()->user())
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-200">
 
             {{-- User --}}
-            @if($user = auth()->user())
                 <x-list-item :item="$user" value="name" sub-value="email" no-separator no-hover class="pt-2">
                     <x-slot:actions>
-                        <x-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="logoff" no-wire-navigate link="/logout" />
+                        <x-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="Logout" no-wire-navigate link="/logout" />
                     </x-slot:actions>
                 </x-list-item>
 
                 <x-menu-separator />
-            @endif
 
-            {{-- Activates the menu item when a route matches the `link` property --}}
-            <x-menu activate-by-route>
-                <x-menu-item title="Home" icon="o-home" link="###" />
-                <x-menu-sub title="Posts" icon="o-document">
-                    <x-menu-item title="List post" icon="o-queue-list" link="{{ route('post.index') }}" />
-                    <x-menu-item title="Create post" icon="o-plus" link="{{ route('post.create') }}" />
-                    <x-menu-item title="Archives" icon="o-archive-box" link="####" />
-                </x-menu-sub>
-            </x-menu>
-        </x-slot:sidebar>
+                {{-- Activates the menu item when a route matches the `link` property --}}
+                <x-menu activate-by-route>
+                    <x-menu-item title="Home" icon="o-home" link="{{ route('welcome') }}" />
+                    <x-menu-sub title="Posts" icon="o-document">
+                        <x-menu-item title="List post" icon="o-queue-list" link="{{ route('post.index') }}" />
+                        <x-menu-item title="Create post" icon="o-plus" link="{{ route('post.create') }}" />
+                        <x-menu-item title="Archives" icon="o-archive-box" link="{{ route('post.archive') }}" />
+                    </x-menu-sub>
+                </x-menu>
+            </x-slot:sidebar>
+        @endif
 
         {{-- The `$slot` goes here --}}
         <x-slot:content>

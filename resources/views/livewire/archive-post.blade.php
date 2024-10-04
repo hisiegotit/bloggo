@@ -1,7 +1,7 @@
 <div>
 
     <!-- HEADER -->
-    <x-header title="Posts" separator progress-indicator>
+    <x-header title="Archived Posts" separator progress-indicator>
         <x-slot:middle class="!justify-end">
             <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
         </x-slot:middle>
@@ -14,8 +14,7 @@
     <x-card>
         <x-table :headers="$headers" :rows="$posts" :sort-by="$sortBy" with-pagination link="/post/edit/{id}">
             @scope('actions', $post)
-                <x-button icon="o-pencil" link="{{ route('post.edit', $post['id']) }}" class="btn-ghost btn-sm text-yellow-500" />
-                <x-button icon="o-trash" wire:click="delete({{ $post['id'] }})" spinner class="btn-ghost btn-sm text-red-500" />
+                <x-button icon="o-arrow-path" wire:click="restore({{ $post['id'] }})" spinner class="btn-ghost btn-sm text-success" />
             @endscope
                 <x-slot:empty>
                     <x-icon name="o-document" label="There's no post found." />
