@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    font-family: 'JUST Sans', sans-serif;
+}
+
 /* Table pagination: active page highlight */
 .mary-table-pagination span[aria-current="page"] > span {
     @apply bg-primary text-base-100
@@ -19,4 +23,8 @@
 
 hr {
     @apply w-40
+}
+
+.center-image {
+    @apply block mx-auto my-4
 }

@@ -3,6 +3,7 @@
 use App\Livewire\ArchivePost;
 use App\Livewire\CreatePost;
 use App\Livewire\EditPost;
+use App\Livewire\Home;
 use App\Livewire\ListPost;
 use App\Livewire\ShowPost;
 use App\Livewire\Welcome;
@@ -22,6 +23,7 @@ use Livewire\Volt\Volt;
 */
 
 Route::get('/', Welcome::class)->name('welcome');
+
 Route::get('/view/{post}', ShowPost::class)->name('post.show');
 // Users will be redirected to this route if not logged in
 Volt::route('/login', 'login')->name('login');
@@ -36,9 +38,15 @@ Route::get('/logout', function () {
     return redirect('/login');
 });
 
-Route::group(['prefix' => 'post', 'as' => 'post.', 'middleware' => 'auth'], function () {
-    Route::get('/', ListPost::class)->name('index');
-    Route::get('/edit/{post}', EditPost::class)->name('edit');
-    Route::get('/create', CreatePost::class)->name('create');
-    Route::get('/archive', ArchivePost::class)->name('archive');
+
+Route::get('/home', Home::class)->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
+        Route::get('/', ListPost::class)->name('index');
+        Route::get('/edit/{post}', EditPost::class)->name('edit');
+        Route::get('/create', CreatePost::class)->name('create');
+        Route::get('/archive', ArchivePost::class)->name('archive');
+    });
+
 });
